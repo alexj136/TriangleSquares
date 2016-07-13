@@ -1,7 +1,5 @@
 module TriangleSquares where
 
--- By default this program prints those numbers that are both triangle and
--- square, ad infinitum
 main :: IO ()
 main = putStr
     . concat
