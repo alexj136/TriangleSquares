@@ -5,7 +5,7 @@ main = putStr
     . concat
     . map printOne
     . index
-    $ commonElementsWithIndexes ( index triangles ) ( index squares )
+    $ commonElements ( index triangles ) ( index squares )
 
 -----------
 -- TYPES --
@@ -63,11 +63,11 @@ printOne (Index i, (n, Index t, Index s)) = concat [ show i, ": ", show n,
 
 -- Given two ordered indexed lists, find elements that are found in both lists
 -- and their indices in each list
-commonElementsWithIndexes :: Ord a => IndexedList a -> IndexedList a ->
+commonElements :: Ord a => IndexedList a -> IndexedList a ->
     [(a, Index, Index)]
-commonElementsWithIndexes []     _      = []
-commonElementsWithIndexes _      []     = []
-commonElementsWithIndexes (a:as) (b:bs) =
-    if valueOf a < valueOf b then commonElementsWithIndexes as (b:bs) else
-    if valueOf a > valueOf b then commonElementsWithIndexes (a:as) bs else
-    (valueOf a, indexOf a, indexOf b) : commonElementsWithIndexes as bs
+commonElements []     _      = []
+commonElements _      []     = []
+commonElements (a:as) (b:bs) =
+    if valueOf a < valueOf b then commonElements as (b:bs) else
+    if valueOf a > valueOf b then commonElements (a:as) bs else
+    (valueOf a, indexOf a, indexOf b) : commonElements as bs
