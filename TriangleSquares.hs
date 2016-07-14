@@ -6,23 +6,26 @@ main = putStr
     . map printOne
     $ computeTrackingSeeds ( zip triangles [ 1 .. ] ) ( zip squares [ 1 .. ] ) 1
 
+listAllPositive :: (Integer -> Integer) -> [Integer]
+listAllPositive f = map f [ 1 .. ]
+
 -- Calculate the nth square number
 square :: Integer -> Integer
 square n = n * n
 
 -- A list of all the square numbers
 squares :: [Integer]
-squares = [ n * n | n <- [ 1 .. ] ]
-
--- A list of all the triangle numbers
-triangles :: [Integer]
-triangles = [ triangle n | n <- [ 1 .. ] ]
+squares = listAllPositive square
 
 -- Calculate the nth triangle number
 triangle :: Integer -> Integer
-triangle n | n < 1 = undefined
-triangle 1         = 1
-triangle n         = n + triangle (n - 1)
+triangle 0         = 0
+triangle n | n < 0 = n + triangle (n + 1)
+triangle n | n > 0 = n + triangle (n - 1)
+
+-- A list of all the triangle numbers
+triangles :: [Integer]
+triangles = listAllPositive triangle
 
 -- Explain a tuple with index, triangle-square number, the triangle root and
 -- the square root
